@@ -2,86 +2,44 @@
 #include <unordered_set>
 #include <cstdint>
 #include <utility>
+#include <string>
 
 class Solution
 {
 public:
     bool isValidSudoku(std::vector<std::vector<char>> &board)
     {
-        // validate lines
-        for (const auto &line : board)
-        {
-            if (!isValid(line))
-            {
-                return false;
-            }
-        }
+        std::unordered_set<std::string> set;
 
-        // validate columns
-        for (int col = 0; col < 9; ++col)
+        for (int i = 0; i < 9; ++i)
         {
-            std::vector<char> currCol(9);
-            for (int row = 0; row < 9; ++row)
+            for (int j = 0; j < 9; ++j)
             {
-                currCol[row] = board[row][col];
-            }
-
-            if (!isValid(currCol))
-            {
-                return false;
-            }
-        }
-
-        // validate squares
-        std::vector<std::vector<std::vector<char>>> squares(3);
-        for (auto &square : squares)
-        {
-            square.resize(3);
-        }
-
-        for (int row = 0; row < 9; ++row)
-        {
-            for (int col = 0; col < 9; ++col)
-            {
-                if (board[row][col] == '.')
+                char c = board[i][j];
+                if (c == '.')
                 {
                     continue;
                 }
-                squares[row / 3][col / 3].push_back(board[row][col]);
-            }
-        }
 
-        for (const auto &square : squares)
-        {
-            for (const auto &v : square)
-            {
-                if (!isValid(v))
+                if (const auto [_, inRow] = set.emplace(std::string{c} + std::string{"in row"} + std::to_string(i));
+                    inRow == false)
+                {
+                    return false;
+                }
+
+                if (const auto [_, inCol] = set.emplace(std::string{c} + std::string{"in col"} + std::to_string(j));
+                    inCol == false)
+                {
+                    return false;
+                }
+
+                if (const auto [_, inBox] = set.emplace(std::string{c} + std::string{"in box"} + std::to_string(i / 3) + std::to_string(j / 3));
+                    inBox == false)
                 {
                     return false;
                 }
             }
         }
-
-        return true;
-    }
-
-    bool isValid(const std::vector<char> &v)
-    {
-        std::unordered_set<char> set;
-
-        for (char c : v)
-        {
-            if (c == '.')
-            {
-                continue;
-            }
-            const auto [_, inserted] = set.insert(c);
-            if (!inserted)
-            {
-                return false;
-            }
-        }
-
         return true;
     }
 };
