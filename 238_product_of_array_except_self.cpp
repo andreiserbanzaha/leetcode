@@ -20,8 +20,8 @@ public:
             pre *= nums[i];
         }
 
-        int post = 1;
-        for (int i = res.size() - 1; i >= 0; --i)
+        int post = nums.back();
+        for (int i = res.size() - 2; i >= 0; --i)
         {
             res[i] *= post;
             post *= nums[i];
