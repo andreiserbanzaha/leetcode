@@ -58,44 +58,81 @@
 //     }
 // };
 
+// class Solution
+// {
+// public:
+//     int longestConsecutive(std::vector<int> &nums)
+//     {
+//         std::unordered_map<int, bool> map;
+//         for (int num : nums)
+//         {
+//             map.insert({num, false});
+//         }
+
+//         int longestConsecutive = 0;
+//         for (int num : nums)
+//         {
+//             if (map[num])
+//             {
+//                 continue;
+//             }
+
+//             int consecutive = 1;
+
+//             int next = num + 1;
+//             while (map.count(next) && !map[next])
+//             {
+//                 map[next] = true;
+//                 ++next;
+//                 ++consecutive;
+//             }
+
+//             int prev = num - 1;
+//             while (map.count(prev) && !map[prev])
+//             {
+//                 map[prev] = true;
+//                 --prev;
+//                 ++consecutive;
+//             }
+
+//             if (consecutive > longestConsecutive)
+//             {
+//                 longestConsecutive = consecutive;
+//             }
+//         }
+
+//         return longestConsecutive;
+//     }
+// };
+
 class Solution
 {
 public:
     int longestConsecutive(std::vector<int> &nums)
     {
-        if (nums.size() == 0)
-        {
-            return 0;
-        }
-
-        std::unordered_map<int, bool> map;
+        std::unordered_set<int> set;
         for (int num : nums)
         {
-            map.insert({num, false});
+            set.insert(num);
         }
 
         int longestConsecutive = 0;
-        for (int num : nums)
+        for (auto &el : set)
         {
-            if (map[num])
-            {
-                continue;
-            }
-
             int consecutive = 1;
 
-            int next = num + 1;
-            while (map.count(next) && !map[next])
+            int next = el + 1;
+            while (set.count(next))
             {
-                map[next] = true;
+                set.erase(next);
                 ++next;
                 ++consecutive;
             }
 
-            int prev = num - 1;
-            while (map.count(prev) && !map[prev])
+            int prev = el - 1;
+            while (set.count(prev))
             {
-                map[prev] = true;
+                set.erase(prev);
                 --prev;
                 ++consecutive;
             }
@@ -114,10 +151,12 @@ int main()
 {
     std::vector<int> a{100, 4, 200, 1, 3, 2};         // 4 -> 1, 2, 3, 4
     std::vector<int> b{0, 3, 7, 2, 5, 8, 4, 6, 0, 1}; // 9 -> 0, 1, ..., 8
+    std::vector<int> c{};                             // {} -> 0
 
     Solution s;
     const int resA = s.longestConsecutive(a);
     const int resB = s.longestConsecutive(b);
+    const int resC = s.longestConsecutive(c);
 
     return 0;
 }
