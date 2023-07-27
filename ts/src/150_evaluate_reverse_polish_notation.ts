@@ -1,24 +1,41 @@
 
-function getResult(a: number, b: number, operation: string): number {
-    switch (operation) {
-        case "+": return a + b;
-        case "-": return a - b;
-        case "*": return a * b;
-        case "/": return Math.trunc(a / b);
-        default: return 0;
-    }
-}
-
 function evalRPN(tokens: string[]): number {
     let numbers: number[] = [];
     tokens.forEach(el => {
-        if (!isNaN(Number(el))) {
-            numbers.push(+el);
-            return;
+        switch (el) {
+            case "+": {
+                const last = numbers.pop();
+                if (last !== undefined) {
+                    numbers[numbers.length - 1] += last;
+                }
+                break;
+            }
+            case "-": {
+                const last = numbers.pop();
+                if (last !== undefined) {
+                    numbers[numbers.length - 1] -= last;
+                }
+                break;
+            }
+            case "*": {
+                const last = numbers.pop();
+                if (last !== undefined) {
+                    numbers[numbers.length - 1] *= last;
+                }
+                break;
+            }
+            case "/": {
+                const last = numbers.pop();
+                if (last !== undefined) {
+                    numbers[numbers.length - 1] = Math.trunc(numbers[numbers.length - 1] / last);
+                }
+                break;
+            }
+            default: {
+                numbers.push(+el);
+                break;
+            }
         }
-        const last: number = numbers.length - 1;
-        numbers[last - 1] = getResult(numbers[last - 1], numbers[last], el);
-        numbers.pop();
     });
     return numbers[0];
 };
