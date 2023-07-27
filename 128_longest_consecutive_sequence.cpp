@@ -1,6 +1,62 @@
 #include <vector>
 #include <set>
+#include <unordered_set>
+#include <unordered_map>
 #include <iostream>
+
+// class Solution
+// {
+// public:
+//     int longestConsecutive(std::vector<int> &nums)
+//     {
+//         if (nums.size() == 0)
+//         {
+//             return 0;
+//         }
+
+//         std::set<int> set;
+
+//         for (int num : nums)
+//         {
+//             set.insert(num);
+//         }
+
+//         auto prev = set.begin();
+//         auto it = set.begin();
+//         ++it;
+
+//         std::vector<int> longest;
+//         longest.push_back(1);
+//         int i = 0;
+
+//         for (; it != set.end(); ++it)
+//         {
+//             if (*it == *prev + 1)
+//             {
+//                 ++longest[i];
+//             }
+//             else
+//             {
+//                 longest.push_back(1);
+//                 ++i;
+//             }
+
+//             prev = it;
+//         }
+
+//         int max = 0;
+
+//         for (int val : longest)
+//         {
+//             if (val > max)
+//             {
+//                 max = val;
+//             }
+//         }
+
+//         return max;
+//     }
+// };
 
 class Solution
 {
@@ -12,47 +68,45 @@ public:
             return 0;
         }
 
-        std::set<int> set;
-
+        std::unordered_map<int, bool> map;
         for (int num : nums)
         {
-            set.insert(num);
+            map.insert({num, false});
         }
 
-        auto prev = set.begin();
-        auto it = set.begin();
-        ++it;
-
-        std::vector<int> longest;
-        longest.push_back(1);
-        int i = 0;
-
-        for (; it != set.end(); ++it)
+        int longestConsecutive = 0;
+        for (int num : nums)
         {
-            if (*it == *prev + 1)
+            if (map[num])
             {
-                ++longest[i];
-            }
-            else
-            {
-                longest.push_back(1);
-                ++i;
+                continue;
             }
 
-            prev = it;
+            int consecutive = 1;
+
+            int next = num + 1;
+            while (map.count(next) && !map[next])
+            {
+                map[next] = true;
+                ++next;
+                ++consecutive;
+            }
+
+            int prev = num - 1;
+            while (map.count(prev) && !map[prev])
+            {
+                map[prev] = true;
+                --prev;
+                ++consecutive;
+            }
+
+            if (consecutive > longestConsecutive)
+            {
+                longestConsecutive = consecutive;
+            }
         }
 
-        int max = 0;
-
-        for (int val : longest)
-        {
-            if (val > max)
-            {
-                max = val;
-            }
-        }
-
-        return max;
+        return longestConsecutive;
     }
 };
 
