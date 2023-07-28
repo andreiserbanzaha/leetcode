@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/dist/22_generate_parentheses.js",
+            "program": "${workspaceFolder}/dist/739_daily_temperatures.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
