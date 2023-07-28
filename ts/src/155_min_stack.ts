@@ -10,7 +10,7 @@ class MinStack {
             this.mins.push(val);
             return;
         }
-        
+
         const currMin: number = this.mins[this.mins.length - 1];
         if (currMin > val) {
             this.mins.push(val);
@@ -38,11 +38,13 @@ class MinStack {
     mins: number[] = [];
 }
 
-let minStack: MinStack = new MinStack();
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-minStack.getMin(); // return -3
-minStack.pop();
-minStack.top();    // return 0
-minStack.getMin(); // return -2
+{
+    let minStack: MinStack = new MinStack();
+    minStack.push(-2);
+    minStack.push(0);
+    minStack.push(-3);
+    minStack.getMin(); // return -3
+    minStack.pop();
+    minStack.top();    // return 0
+    minStack.getMin(); // return -2
+}

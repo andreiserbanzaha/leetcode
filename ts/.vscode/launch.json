@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/dist/150_evaluate_reverse_polish_notation.js",
+            "program": "${workspaceFolder}/dist/22_generate_parentheses.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
