@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/dist/11_container_with_most_water.js",
+            "program": "${workspaceFolder}/dist/74_search_a_2d_matrix.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
