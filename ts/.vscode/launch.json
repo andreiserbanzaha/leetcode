@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/dist/121_best_time_to_buy_and_sell_stocks.js",
+            "program": "${workspaceFolder}/dist/3_longest_substring_without_repeating_characters.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
