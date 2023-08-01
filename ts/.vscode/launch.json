@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/dist/3_longest_substring_without_repeating_characters.js",
+            "program": "${workspaceFolder}/dist/424_longest_repeating_character_replacement.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
