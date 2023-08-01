@@ -15,10 +15,13 @@ function characterReplacement(s: string, k: number): number {
         currMax = Math.max(arr[c], currMax);
         if ((r - l + 1) - currMax <= k) {
             max = Math.max(r - l + 1, max);
-        } else {
+        }
+
+        while ((r - l + 1) - currMax > k) {
             --arr[s.charCodeAt(l) - capitalA];
             ++l;
         }
+
         ++r;
     }
 
